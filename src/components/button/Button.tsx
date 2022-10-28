@@ -1,3 +1,5 @@
+import React from "react";
+
 interface ButtonProps {
     title: string;
 }
@@ -7,7 +9,7 @@ const Button = (props : ButtonProps) => {
         <div>
             {props?.title}
         </div>
-    )
-}
+    );
+};
 
 export default Button;
