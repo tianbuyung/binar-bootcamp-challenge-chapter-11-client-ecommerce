@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, memo } from "react";
+import React, { useCallback, useEffect, useState, useRef, memo } from "react";
 import {
   Button,
   Col,
@@ -6,11 +6,18 @@ import {
   Form,
   FormGroup,
   InputGroup,
+  ProgressBar,
   Row,
 } from "react-bootstrap";
-import CategoryService from "../../../../services/CategoryService";
-import ProductService from "../../../../services/ProductService";
+import PropTypes from "prop-types";
+import CategoryService from "@services/CategoryService";
+import ProductService from "@services/ProductService";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../firebase";
 
+const metadata = {
+  contentType: "image/jpeg",
+};
 const categoryService = new CategoryService();
 const productService = new ProductService();
 
@@ -21,6 +28,8 @@ const AddProduct = ({ setIsFetching }) => {
   const [enteredProductPrice, setEnteredProductPrice] = useState("");
   const [enteredProductCategory, setEnteredProductCategory] = useState("");
   const [enteredProductImage, setEnteredProductImage] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [progress, setProgress] = useState(0);
 
   const fetchGetCategoryHandler = useCallback(async () => {
     try {
@@ -35,23 +44,29 @@ const AddProduct = ({ setIsFetching }) => {
     fetchGetCategoryHandler();
   }, [fetchGetCategoryHandler]);
 
+  let formIsValid = false;
+
+  if (imageUrl) {
+    formIsValid = true;
+  }
+
   const addProductHandler = async (event) => {
     event.preventDefault();
 
     setIsFetching(false);
 
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-    setValidated(true);
 
     if (
       enteredProductName.trim().length === 0 ||
       enteredProductPrice.trim().length === 0 ||
-      enteredProductCategory.trim().length === 0
-      // enteredProductImage.trim().length === 0
+      enteredProductCategory.trim().length === 0 ||
+      !enteredProductImage
     ) {
       return alert("Please provide a valid data!");
     }
@@ -60,7 +75,7 @@ const AddProduct = ({ setIsFetching }) => {
       name: enteredProductName,
       price: enteredProductPrice,
       CategoryId: enteredProductCategory,
-      imagerUrl: enteredProductImage,
+      imageUrl,
     };
 
     const data = await productService.addProduct(body);
@@ -76,6 +91,8 @@ const AddProduct = ({ setIsFetching }) => {
       setEnteredProductPrice("");
       setEnteredProductCategory("");
       setEnteredProductImage("");
+      setImageUrl("");
+      setProgress(0);
       setValidated(false);
     }
   };
@@ -93,11 +110,70 @@ const AddProduct = ({ setIsFetching }) => {
   };
 
   const fileChangeHandler = (event) => {
-    setEnteredProductImage();
-    console.log(event);
+    if (event.target.files[0]) {
+      const image = event.target.files[0];
+      setEnteredProductImage(image);
+    }
   };
 
-  const fileUpload = (event) => {};
+  const fileUpload = () => {
+    if (!enteredProductImage) {
+      return alert("Please provide a valid image!");
+    } else {
+      const storageRef = ref(storage, `images/${enteredProductImage.name}`);
+      const uploadTask = uploadBytesResumable(
+        storageRef,
+        enteredProductImage,
+        metadata
+      );
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setProgress(progress);
+          console.log(`Upload is ${progress} % done`);
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setImageUrl(downloadURL);
+            setValidated(true);
+            console.log("File available at", downloadURL);
+          });
+        }
+      );
+    }
+  };
 
   return (
     <Container className="bg-light mt-5" fluid="md">
@@ -146,9 +222,7 @@ const AddProduct = ({ setIsFetching }) => {
                   onChange={productCategoryChangeHandler}
                   value={enteredProductCategory}
                 >
-                  <option value={""}>
-                    Please select your product category!
-                  </option>
+                  <option value="">Please select your product category!</option>
                   {getCategory.map((category) => {
                     return (
                       <option value={category.id} key={category.id}>
@@ -164,7 +238,7 @@ const AddProduct = ({ setIsFetching }) => {
             </Form.Group>
             <InputGroup className="mb-3">
               <Form.Control
-                // required
+                required
                 placeholder="Upload image"
                 type="file"
                 onChange={fileChangeHandler}
@@ -178,7 +252,8 @@ const AddProduct = ({ setIsFetching }) => {
               </Form.Control.Feedback>
               <Button onClick={fileUpload}>Upload</Button>
             </InputGroup>
-            <Button className="mb-3" type="submit">
+            <ProgressBar now={progress} className="mb-3" />
+            <Button className="mb-3" type="submit" disabled={!formIsValid}>
               Submit
             </Button>
           </Form>
@@ -186,6 +261,10 @@ const AddProduct = ({ setIsFetching }) => {
       </Row>
     </Container>
   );
+};
+
+AddProduct.propTypes = {
+  setIsFetching: PropTypes.func.isRequired,
 };
 
 export default memo(AddProduct);
