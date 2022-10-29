@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import ProductService from "../../../../services/ProductService";
@@ -72,7 +72,7 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
                     style={{ cursor: "pointer", marginLeft: "0.5rem" }}
                     onClick={() => handleDelete(product.id)}
                     className="bi bi-trash3-fill"
-                  ></i>
+                  />
                 </td>
               </tr>
             );

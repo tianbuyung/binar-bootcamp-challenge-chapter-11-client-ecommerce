@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, memo } from "react";
+import React, { useCallback, useEffect, useState, memo } from "react";
 import {
   Button,
   Col,
@@ -41,10 +41,12 @@ const AddProduct = ({ setIsFetching }) => {
     setIsFetching(false);
 
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
+
     setValidated(true);
 
     if (
@@ -146,7 +148,7 @@ const AddProduct = ({ setIsFetching }) => {
                   onChange={productCategoryChangeHandler}
                   value={enteredProductCategory}
                 >
-                  <option value={""}>
+                  <option value="">
                     Please select your product category!
                   </option>
                   {getCategory.map((category) => {

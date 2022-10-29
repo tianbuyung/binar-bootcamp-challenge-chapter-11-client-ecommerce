@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Card, Col, Container, Row, Placeholder } from "react-bootstrap";
 import Link from "next/link";
 
@@ -40,7 +41,7 @@ const HomePage = (props) => {
 
   return (
     <div>
-      <Navbar variant={"dark"} bg={"dark"} />
+      <Navbar variant="dark" bg="dark" />
       <Container>
         {!loading ? (
           <>
@@ -91,7 +92,7 @@ const HomePage = (props) => {
                     <Col lg={2} xl={2} className="text-start text-white">
                       <h3>{category.name}</h3>
                     </Col>
-                    <Col lg={"auto"} xl={"10"}>
+                    <Col lg="auto" xl="10">
                       <Row>
                         <Col className="text-end my-3">
                           <Link
@@ -160,12 +161,12 @@ const HomePage = (props) => {
                 <Col lg={2} xl={2} className="text-start text-white">
                   <Placeholder
                     md={6}
-                    as={"h3"}
+                    as="h3"
                     animation="wave"
                     variant="primary"
                   />
                 </Col>
-                <Col lg={"auto"} xl={"10"}>
+                <Col lg="auto" xl="10">
                   <Row>
                     <Col className="text-end my-3">
                       <Placeholder xs={3} animation="wave" />
@@ -193,13 +194,17 @@ HomePage.getInitialProps = async () => {
   const props = {
     getCategoryProps: [],
   };
+
   try {
     const data = await fetchGetCategoryHandlerServer();
     props.getCategoryProps = data?.categories;
+
     return props;
   } catch (e) {
     // silent e
+
     return props;
   }
 };
+
 export default HomePage;

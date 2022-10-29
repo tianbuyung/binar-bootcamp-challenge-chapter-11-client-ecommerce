@@ -5,6 +5,8 @@ import {
   TwitterIcon,
 } from "react-share";
 import { ButtonGroup } from "react-bootstrap";
+import React from "react";
+
 interface ShareButtonProps {
   name: string;
   id: string;
@@ -15,7 +17,9 @@ const ShareButton = ({ name, id }: ShareButtonProps) => {
   const fbHashtag = "#test";
   const twHashtags = "test";
   const size = "2.5rem";
-  return (
+
+  
+return (
     <ButtonGroup aria-label="share-button">
       <FacebookShareButton url={shareUrl} quote={title} hashtag={fbHashtag}>
         <FacebookIcon size={size} />

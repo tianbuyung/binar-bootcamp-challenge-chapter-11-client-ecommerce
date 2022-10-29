@@ -9,6 +9,8 @@ import Container from "react-bootstrap/Container";
 import { Placeholder, Row, Col } from "react-bootstrap";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import React from "react";
+
 const NO_IMAGE =
   "https://res.cloudinary.com/drqqwwpen/image/upload/v1596474380/pcs/not-available_g2vsum.jpg";
 const cartDetailService = new CartDetailService();
@@ -93,25 +95,25 @@ const ProductDetailPage = ({ query }) => {
                   margin: "auto",
                 }}
                 src={NO_IMAGE}
-                alt={"gambar"}
+                alt="gambar"
               />
             </Col>
             <Col style={{ textAlign: "left" }}>
-              <Placeholder as={"h2"} animation="glow">
+              <Placeholder as="h2" animation="glow">
                 <Placeholder lg={12} size="lg" />
               </Placeholder>
-              <Placeholder as={"h3"} animation="glow">
+              <Placeholder as="h3" animation="glow">
                 <Placeholder lg={6} size="lg" />
               </Placeholder>
-              <Placeholder as={"h3"} animation="glow">
+              <Placeholder as="h3" animation="glow">
                 <Placeholder lg={6} size="lg" />
               </Placeholder>
               <Placeholder.Button size="lg" lg={12} variant="primary" />
-              {""}
-              <Placeholder as={"h3"} animation="glow">
-                <Placeholder lg={2} size="md" />{" "}
-                <Placeholder lg={1} size="md" bg="secondary" />{" "}
-                <Placeholder lg={1} size="md" bg="info" />
+              
+              <Placeholder as="h3" animation="glow">
+                <Placeholder lg={2} size="sm" />{" "}
+                <Placeholder lg={1} size="sm" bg="secondary" />{" "}
+                <Placeholder lg={1} size="sm" bg="info" />
               </Placeholder>
             </Col>
           </Row>

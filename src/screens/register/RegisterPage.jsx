@@ -1,4 +1,4 @@
-import { Button, Container, Form } from "react-bootstrap";
+import React, { Button, Container, Form } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -9,12 +9,13 @@ import Navbar from "../../components/navbar";
 const authservice = new AuthService();
 const RegisterPage = () => {
 	const [user, setUser] = useState();
-	let router = useRouter();
+	const router = useRouter();
 
 	const createUser = async (e) => {
 		e.preventDefault();
 		try {
 			const getData = await authservice.register(user);
+
 			if (getData.status === 200) {
 				const message = await getData.json();
 				alert(message.message);
@@ -25,41 +26,42 @@ const RegisterPage = () => {
 			}
 		} catch (err) {
 			alert("Error! Please try again");
-			console.log("error while send api : " + err.message);
+			console.log(`error while send api : ${ err.message}`);
 		}
 	};
 
 	return (
 		<>
-			<Navbar variant={"dark"} bg={"dark"} />
+			<Navbar variant="dark" bg="dark" />
 			<Container>
+				{/* eslint-disable-next-line react/no-unknown-property */}
 				<h2 align="center">Daftar Akun</h2>
 
 				<Form onSubmit={createUser} align="left">
 					<Forms
-						label={"Email"}
-						name={"email"}
-						type={"email"}
-						placeholder={"Masukkan email Anda"}
+						label="Email"
+						name="email"
+						type="email"
+						placeholder="Masukkan email Anda"
 						onChange={(e) => {
 							setUser({ ...user, email: e.target.value });
 						}}
 					/>
 					<Forms
-						label={"Nama"}
-						name={"nama"}
-						type={"text"}
-						placeholder={"Masukkan nama Anda"}
+						label="Nama"
+						name="nama"
+						type="text"
+						placeholder="Masukkan nama Anda"
 						onChange={(e) => {
 							setUser({ ...user, nama: e.target.value });
 						}}
 						min={3}
 					/>
 					<Forms
-						label={"Password"}
-						name={"password"}
-						type={"password"}
-						placeholder={"Masukkan password Anda"}
+						label="Password"
+						name="password"
+						type="password"
+						placeholder="Masukkan password Anda"
 						onChange={(e) => {
 							setUser({
 								...user,
@@ -69,7 +71,7 @@ const RegisterPage = () => {
 						min={6}
 					/>
 
-					<Button title={"Register"} type={"submit"}>
+					<Button title="Register" type="submit">
 						Register
 					</Button>
 				</Form>

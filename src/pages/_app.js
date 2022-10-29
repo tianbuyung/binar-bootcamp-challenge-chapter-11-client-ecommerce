@@ -3,6 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "../index.css";
 import "../App.css";
 import store from "../store";
+import React from "react";
 import { Provider } from "react-redux";
 
 function MyApp({ Component, pageProps }) {

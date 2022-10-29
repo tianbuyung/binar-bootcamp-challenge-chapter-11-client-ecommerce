@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProductService from "../../services/ProductService";
 import { ProductProps } from "../../interfaces/ProductInterfaces";
+
 const productService = new ProductService();
 
 interface ProductDetailHooksProps {
@@ -16,19 +16,21 @@ const useProductDetailPage = ({ id } : ProductDetailHooksProps) => {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const data = await productService.getProductDetailUser(id)
-                setProduct(data.product)
+                const data = await productService.getProductDetailUser(id);
+                setProduct(data.product);
                 setLoading(false);
             } catch (error) {
-                console.log('error', error)
+                console.log("error", error);
             }
-        }
+        };
+
         getProduct();
-    }, [])
-    return {
+    }, []);
+    
+return {
         product,
-        loading
-    }
-}
+        loading,
+    };
+};
 
 export default useProductDetailPage;
