@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { Container, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import ProductService from "../../../../services/ProductService";
@@ -49,6 +50,7 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
             <th>Price</th>
             <th>Category</th>
             <th>Image URL</th>
+            <th>Video URL</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -61,6 +63,7 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
                 <td>{product.price}</td>
                 <td>{product.Category.name}</td>
                 <td className="text-start">{product.imageUrl}</td>
+                <td className="text-start">{product.videoUrl}</td>
                 <td>
                   <UpdateProducts
                     product={product}
@@ -72,7 +75,7 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
                     style={{ cursor: "pointer", marginLeft: "0.5rem" }}
                     onClick={() => handleDelete(product.id)}
                     className="bi bi-trash3-fill"
-                  ></i>
+                  />
                 </td>
               </tr>
             );
@@ -102,6 +105,11 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
       </div>
     </Container>
   );
+};
+
+ListProduct.propTypes = {
+  isFetching: PropTypes.bool.isRequired,
+  setIsFetching: PropTypes.func.isRequired,
 };
 
 export default ListProduct;

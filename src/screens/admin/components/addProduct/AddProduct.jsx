@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef, memo } from "react";
+import React, { useCallback, useEffect, useState, memo } from "react";
 import {
   Button,
   Col,
@@ -28,7 +28,9 @@ const AddProduct = ({ setIsFetching }) => {
   const [enteredProductPrice, setEnteredProductPrice] = useState("");
   const [enteredProductCategory, setEnteredProductCategory] = useState("");
   const [enteredProductImage, setEnteredProductImage] = useState("");
+  const [enteredProductVideo, setEnteredProductVideo] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [videoUrl, setVideoUrl] = useState("");
   const [progress, setProgress] = useState(0);
 
   const fetchGetCategoryHandler = useCallback(async () => {
@@ -76,6 +78,7 @@ const AddProduct = ({ setIsFetching }) => {
       price: enteredProductPrice,
       CategoryId: enteredProductCategory,
       imageUrl,
+      videoUrl,
     };
 
     const data = await productService.addProduct(body);
@@ -109,18 +112,27 @@ const AddProduct = ({ setIsFetching }) => {
     setEnteredProductCategory(event.target.value);
   };
 
-  const fileChangeHandler = (event) => {
+  const imageChangeHandler = (event) => {
     if (event.target.files[0]) {
       const image = event.target.files[0];
       setEnteredProductImage(image);
+      console.log(event);
     }
   };
 
-  const fileUpload = () => {
-    if (!enteredProductImage) {
-      return alert("Please provide a valid image!");
+  const videoChangeHandler = (event) => {
+    if (event.target.files[0]) {
+      const video = event.target.files[0];
+      setEnteredProductVideo(video);
+      console.log(event);
+    }
+  };
+
+  const fileUpload = (fileType, fileState, setUrlFile) => {
+    if (!fileState) {
+      alert(`Please provide a valid ${fileType}!`);
     } else {
-      const storageRef = ref(storage, `images/${enteredProductImage.name}`);
+      const storageRef = ref(storage, `${fileType}s/${fileState.name}`);
       const uploadTask = uploadBytesResumable(
         storageRef,
         enteredProductImage,
@@ -166,8 +178,7 @@ const AddProduct = ({ setIsFetching }) => {
         () => {
           // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUrl(downloadURL);
-            setValidated(true);
+            setUrlFile(downloadURL);
             console.log("File available at", downloadURL);
           });
         }
@@ -241,7 +252,7 @@ const AddProduct = ({ setIsFetching }) => {
                 required
                 placeholder="Upload image"
                 type="file"
-                onChange={fileChangeHandler}
+                onChange={imageChangeHandler}
               />
               <Form.Control.Feedback
                 type="invalid"
@@ -250,9 +261,41 @@ const AddProduct = ({ setIsFetching }) => {
               >
                 Please provide a valid image file.
               </Form.Control.Feedback>
-              <Button onClick={fileUpload}>Upload</Button>
+              <Button
+                onClick={() =>
+                  fileUpload("image", enteredProductImage, setImageUrl)
+                }
+              >
+                Upload Image
+              </Button>
             </InputGroup>
-            <ProgressBar now={progress} className="mb-3" />
+            <InputGroup className="mb-3">
+              <Form.Control
+                required
+                placeholder="Upload video"
+                type="file"
+                onChange={videoChangeHandler}
+              />
+              <Form.Control.Feedback
+                type="invalid"
+                tooltip
+                className="text-start"
+              >
+                Please provide a valid video file.
+              </Form.Control.Feedback>
+              <Button
+                onClick={() =>
+                  fileUpload("video", enteredProductVideo, setVideoUrl)
+                }
+              >
+                Upload Video
+              </Button>
+            </InputGroup>
+            {progress > 0 ? (
+              <ProgressBar now={progress} className="mb-3" />
+            ) : (
+              ""
+            )}
             <Button className="mb-3" type="submit" disabled={!formIsValid}>
               Submit
             </Button>
