@@ -5,6 +5,7 @@ import "../App.css";
 import store from "../store";
 import React from "react";
 import { Provider } from "react-redux";
+import PropTypes from "prop-types";
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -15,5 +16,10 @@ function MyApp({ Component, pageProps }) {
 		</Provider>
 	);
 }
+
+MyApp.propTypes = {
+	Component: PropTypes.any.isRequired,
+	pageProps: PropTypes.any.isRequired,
+};
 
 export default MyApp;

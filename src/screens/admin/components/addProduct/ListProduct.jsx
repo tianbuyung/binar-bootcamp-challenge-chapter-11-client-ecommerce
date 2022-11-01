@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
+import PropTypes from "prop-types";
+
 import ProductService from "../../../../services/ProductService";
 import UpdateProducts from "./UpdateProduct";
 
@@ -102,6 +104,11 @@ const ListProduct = ({ isFetching, setIsFetching }) => {
       </div>
     </Container>
   );
+};
+
+ListProduct.propTypes = {
+  setIsFetching: PropTypes.bool.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default ListProduct;

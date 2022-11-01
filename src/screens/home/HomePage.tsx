@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Card, Col, Container, Row, Placeholder } from "react-bootstrap";
 import Link from "next/link";
@@ -187,6 +187,10 @@ const HomePage = (props) => {
       </Container>
     </div>
   );
+};
+
+HomePage.propTypes = {
+  getCategoryProps: PropTypes.any.isRequired,
 };
 
 HomePage.getInitialProps = async () => {

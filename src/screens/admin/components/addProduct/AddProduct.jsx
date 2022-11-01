@@ -8,6 +8,8 @@ import {
   InputGroup,
   Row,
 } from "react-bootstrap";
+import PropTypes from "prop-types";
+
 import CategoryService from "../../../../services/CategoryService";
 import ProductService from "../../../../services/ProductService";
 
@@ -188,6 +190,10 @@ const AddProduct = ({ setIsFetching }) => {
       </Row>
     </Container>
   );
+};
+
+AddProduct.propTypes = {
+  setIsFetching: PropTypes.bool.isRequired,
 };
 
 export default memo(AddProduct);
