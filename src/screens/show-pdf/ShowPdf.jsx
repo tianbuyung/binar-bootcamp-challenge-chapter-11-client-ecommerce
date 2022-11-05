@@ -1,28 +1,31 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase";
 
-export default function ShowPdf() {
-  const containerRef = useRef(null);
+const ShowPdf = () => {
+	const [document, setDocument] = useState(null);
+	const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
-  useEffect(() => {
-    const container = containerRef.current;
-    let PSPDFKit;
+	useEffect(() => {
+		getDownloadURL(ref(storage, "pdf/example.pdf")).then((url) => {
+			console.log(url);
+			setDocument(url);
+		});
+	}, []);
 
-    (async function () {
-      PSPDFKit = await import("pspdfkit");
+	return (
+		<>
+			{document !== null && (
+				<Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
+					<Viewer fileUrl={document} plugins={[defaultLayoutPluginInstance]} />
+				</Worker>
+			)}
+		</>
+	);
+};
 
-      if (PSPDFKit) {
-        PSPDFKit.unload(container);
-      }
+export default ShowPdf;
 
-      await PSPDFKit.load({
-        container,
-        document: "/files/example.pdf",
-        baseUrl: `${window.location.protocol}//${window.location.host}/`,
-      });
-    })();
-
-    return () => PSPDFKit && PSPDFKit.unload(container);
-  }, []);
-
-  return <div ref={containerRef} style={{ height: "100vh" }} />;
-}
+// source: https://www.youtube.com/watch?v=WBpHWm8FL_E
