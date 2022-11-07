@@ -13,7 +13,7 @@ const ShowVideo = () => {
 	return (
 		<div className="d-flex align-items-center justify-content-center">
 			{hasWindow && (
-				<ReactPlayer url="https://firebasestorage.googleapis.com/v0/b/binar-e-commerce-007.appspot.com/o/videos%2FMy%20bansky%20NFT.mp4?alt=media&token=71947e92-89b5-4dd4-a7a3-c720b1c39a2d" />
+				<ReactPlayer url="https://firebasestorage.googleapis.com/v0/b/binar-e-commerce-007.appspot.com/o/videos%2Fcontoh-video-shoes.mp4?alt=media&token=db5c9d95-1960-4b0f-9840-a48dbbf610b4" />
 			)}
 		</div>
 	);
