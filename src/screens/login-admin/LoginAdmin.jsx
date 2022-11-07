@@ -31,7 +31,7 @@ const LoginAdmin = () => {
 			}
 		} catch (err) {
 			alert("Error! Please try again");
-			console.log(`error while send api : ${ err.message}`);
+			console.log(`error while send api : ${err.message}`);
 		}
 	};
 

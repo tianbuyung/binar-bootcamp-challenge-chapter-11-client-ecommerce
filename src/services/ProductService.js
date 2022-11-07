@@ -15,12 +15,7 @@ export default class ProductService extends BaseService {
 			method: "GET",
 		};
 
-		return await this.fetch(
-			"/admin/products" + query,
-			options,
-			true,
-			"admin"
-		);
+		return await this.fetch(`/admin/products${query}`, options, true, "admin");
 	};
 
 	getProductDetailUser = async (id) => {
@@ -28,13 +23,14 @@ export default class ProductService extends BaseService {
 			method: "GET",
 		};
 
-		return await this.fetch("/product/" + id, options, false);
+		return await this.fetch(`/product/${id}`, options, false);
 	};
 
 	getProductPopular = async () => {
 		const options = {
 			method: "GET",
 		};
+
 		return await this.fetch("/product/popular", options, false);
 	};
 
@@ -44,12 +40,7 @@ export default class ProductService extends BaseService {
 			body: JSON.stringify(data),
 		};
 
-		return await this.fetch(
-			`/admin/products/${id}`,
-			options,
-			true,
-			"admin"
-		);
+		return await this.fetch(`/admin/products/${id}`, options, true, "admin");
 	};
 
 	deleteProduct = async (id) => {
@@ -57,11 +48,6 @@ export default class ProductService extends BaseService {
 			method: "DELETE",
 		};
 
-		return await this.fetch(
-			`/admin/products/${id}`,
-			options,
-			true,
-			"admin"
-		);
+		return await this.fetch(`/admin/products/${id}`, options, true, "admin");
 	};
 }
