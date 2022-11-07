@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -47,10 +47,12 @@ const UpdateProducts = (props) => {
     setIsFetching(false);
 
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
+
     setValidated(true);
 
     const body = {
@@ -95,7 +97,9 @@ const UpdateProducts = (props) => {
   };
 
   const fileUpload = (event) => {};
-  return (
+
+  
+return (
     <>
       <i
         className="bi bi-pencil-square"
@@ -150,7 +154,7 @@ const UpdateProducts = (props) => {
                   onChange={productCategoryChangeHandler}
                   defaultValue={product.CategoryId}
                 >
-                  <option value={""}>
+                  <option value="">
                     Please select your product category!
                   </option>
                   {getCategory.map((category) => {

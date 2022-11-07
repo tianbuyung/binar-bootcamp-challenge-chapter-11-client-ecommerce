@@ -6,6 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 const privateUser = (children) => {
      return (props) => {
 
-     }
-}
+     };
+};
 

@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { login } from "../../features/authSlice";
@@ -34,30 +34,30 @@ const LoginUser = () => {
       }
     } catch (err) {
       alert("Error! Please try again");
-      console.log("error while send api : " + err.message);
+      console.log(`error while send api : ${ err.message}`);
     }
   };
 
   return (
     <>
-      <Navbar variant={"dark"} bg={"dark"} />
+      <Navbar variant="dark" bg="dark" />
       <Container>
         <h1>Login User</h1>
         <Form onSubmit={loginUser} align="left">
           <Forms
-            label={"Email"}
-            name={"email"}
-            type={"email"}
-            placeholder={"Masukkan email Anda"}
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="Masukkan email Anda"
             onChange={(e) => {
               setUser({ ...user, email: e.target.value });
             }}
           />
           <Forms
-            label={"Password"}
-            name={"password"}
-            type={"password"}
-            placeholder={"Masukkan password Anda"}
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Masukkan password Anda"
             onChange={(e) => {
               setUser({
                 ...user,
@@ -66,7 +66,7 @@ const LoginUser = () => {
             }}
           />
 
-          <Button title={"login"} type={"submit"}>
+          <Button title="login" type="submit">
             Login
           </Button>
         </Form>

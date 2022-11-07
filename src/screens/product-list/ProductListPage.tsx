@@ -1,11 +1,11 @@
-import useProductListPage from './useProductListPage'
-import BreadcrumbComponent from '../../components/breadcrumbs/BreadCrumbs'
-import Navbar from '../../components/navbar'
-import { withAuth } from "../../hoc/withAuth";
+import useProductListPage from "./useProductListPage";
+import BreadcrumbComponent from "../../components/breadcrumbs/BreadCrumbs";
+import Navbar from "../../components/navbar";
 
-import ReactPaginate from 'react-paginate';
-import Link from 'next/link'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import ReactPaginate from "react-paginate";
+import Link from "next/link";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import React from "react";
 
 const NO_IMAGE =
   "https://res.cloudinary.com/drqqwwpen/image/upload/v1596474380/pcs/not-available_g2vsum.jpg";
@@ -16,7 +16,9 @@ const ProductListPage = ({ query }) => {
     { title: "Home", isActive: false, href: "/" },
     { title: products[0]?.Category?.name, isActive: true },
   ];
-  return (
+
+  
+return (
     <>
       <Navbar variant="dark" bg="dark" />
       <Container>
@@ -48,24 +50,25 @@ const ProductListPage = ({ query }) => {
           pageRangeDisplayed={5}
           pageCount={totalPage}
           previousLabel="< previous"
-          breakLinkClassName={"page-link"}
-          containerClassName={"pagination"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          activeClassName={"active"}
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          activeClassName="active"
         />
       </Container>
     </>
   );
 };
+
 ProductListPage.getInitialProps = async ({ query }, screen) => {
     return {
-        query
-    }
-}
+        query,
+    };
+};
 
 export default ProductListPage;

@@ -60,6 +60,81 @@ const ProductDetailPage = ({ query }: ProductDetailProps) => {
 					<Row xs={1} md={2} className="align-items-center p-2">
 						<Col>
 							<Image
+								style={{
+									width: "auto",
+									height: "auto",
+									margin: "auto",
+								}}
+								src={product?.imageUrl || NO_IMAGE}
+								alt={product?.name || "gambar"}
+							/>
+						</Col>
+						<Col style={{ textAlign: "left" }}>
+							<h2>{product?.name}</h2>
+							<h3>{product?.Category?.name}</h3>
+							<h3>Rp. {product?.price}K</h3>
+							<br />
+							<Button
+								variant="primary"
+								onClick={addCartDetail}
+								className="mb-3 btn-lg w-100"
+							>
+								Buy
+							</Button>
+							<br />
+							Share:{" "}
+							<ShareButton
+								name={product?.name}
+								id={product?.id}
+								className="m-2"
+							/>
+						</Col>
+					</Row>
+				) : (
+					<Row xs={1} md={2} className="align-items-center">
+						<Col>
+							<Image
+								style={{
+									width: 400,
+									height: "auto",
+									margin: "auto",
+								}}
+								src={NO_IMAGE}
+								alt="gambar"
+							/>
+						</Col>
+						<Col style={{ textAlign: "left" }}>
+							<Placeholder as="h2" animation="glow">
+								<Placeholder lg={12} size="lg" />
+							</Placeholder>
+							<Placeholder as="h3" animation="glow">
+								<Placeholder lg={6} size="lg" />
+							</Placeholder>
+							<Placeholder as="h3" animation="glow">
+								<Placeholder lg={6} size="lg" />
+							</Placeholder>
+							<Placeholder.Button size="lg" lg={12} variant="primary" />
+
+							<Placeholder as="h3" animation="glow">
+								<Placeholder lg={2} size="sm" />{" "}
+								<Placeholder lg={1} size="sm" bg="secondary" />{" "}
+								<Placeholder lg={1} size="sm" bg="info" />
+							</Placeholder>
+						</Col>
+					</Row>
+				)}
+			</Container>
+		</div>
+	);
+	return (
+		<div>
+			<Navbar variant="dark" bg="dark" />
+			<Container>
+				<BreadcrumbComponent data={breadcrumbs} baseColor="black" />
+				{!loading ? (
+					<Row xs={1} md={2} className="align-items-center p-2">
+						<Col>
+							<Image
 								src={product?.imageUrl || NO_IMAGE}
 								alt={product?.name || "gambar"}
 								width="400"

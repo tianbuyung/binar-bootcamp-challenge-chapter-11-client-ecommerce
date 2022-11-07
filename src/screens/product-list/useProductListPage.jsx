@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import CategoryService from "@services/CategoryService";
+
 const categoryService = new CategoryService();
 const SIZE = 8;
 const useProductListPage = ({ query: queryProps }) => {
@@ -19,11 +20,13 @@ const useProductListPage = ({ query: queryProps }) => {
         //
       }
     };
+
     if (page) {
       getCategoryProducts();
     }
   }, [page, queryProps?.slug]);
-  return {
+  
+return {
     products,
     page,
     setPage,
