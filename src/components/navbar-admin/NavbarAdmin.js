@@ -13,6 +13,7 @@ const NavbarAdmin = () => {
 
 	const adminLogout = () => {
 		const response = authservice.logoutAdmin();
+
 		if (response === "success") {
 			alert("Successfully logout");
 			dispatch(logoutAdmin());
@@ -21,8 +22,10 @@ const NavbarAdmin = () => {
 			alert("Failed to logout! Please try again!");
 		}
 	};
-	return (
-		<Navbar variant={"dark"} bg={"dark"} expand="lg">
+
+	
+return (
+		<Navbar variant="dark" bg="dark" expand="lg">
 			<Container>
 				<Navbar.Brand
 					onClick={() => router.push("/admin")}
@@ -31,7 +34,7 @@ const NavbarAdmin = () => {
 					Home
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-				<Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
+				<Navbar.Collapse id="basic-navbar-nav" />
 				<Navbar.Brand>
 					<div
 						className="cursor-pointer"

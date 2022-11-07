@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import NavbarAdmin from "../../components/navbar-admin/NavbarAdmin";
 import AddProduct from "./components/addProduct/AddProduct";
 import ListProduct from "./components/addProduct/ListProduct";
@@ -6,7 +6,8 @@ import { withAuthAdmin } from "../../hoc/withAuth";
 
 const Admin = () => {
   const [isFetching, setIsFetching] = useState(false);
-  return (
+  
+return (
     <>
       <NavbarAdmin />
       <AddProduct setIsFetching={setIsFetching} />
@@ -16,4 +17,5 @@ const Admin = () => {
 };
 
 const AdminPage = withAuthAdmin(Admin);
+
 export default AdminPage;

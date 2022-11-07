@@ -15,19 +15,19 @@ const CardPlaceholder = () => {
 				<Placeholder as={Card.Title} animation="glow">
 					<Placeholder
 						xs={12}
-						className={"change-border"}
+						className="change-border"
 						bg="secondary"
 					/>
 				</Placeholder>
 				<Placeholder as={Card.Text} animation="glow">
 					<Placeholder
 						xs={12}
-						className={"change-border"}
+						className="change-border"
 						bg="secondary"
 					/>{" "}
 					<Placeholder
 						xs={7}
-						className={"change-border"}
+						className="change-border"
 						bg="secondary"
 					/>{" "}
 				</Placeholder>

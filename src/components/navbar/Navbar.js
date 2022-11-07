@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
 import { logout } from "../../features/authSlice";
 import AuthService from "@services/AuthService";
@@ -17,6 +18,7 @@ const NavbarComponent = ({ variant, bg }) => {
 
 	const userLogout = () => {
 		const response = authservice.logoutUser();
+
 		if (response === "success") {
 			alert("Successfully logout");
 			dispatch(logout());
@@ -84,6 +86,11 @@ const NavbarComponent = ({ variant, bg }) => {
 			</Container>
 		</Navbar>
 	);
+};
+
+NavbarComponent.propTypes = {
+  variant: PropTypes.string.isRequired,
+  bg: PropTypes.string.isRequired,
 };
 
 export default NavbarComponent;

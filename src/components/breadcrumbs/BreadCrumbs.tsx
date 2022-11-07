@@ -1,8 +1,10 @@
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { BreadCrumbsProps } from "./BreadCrumbsInterface";
+
 function BreadcrumbComponent(props: BreadCrumbsProps) {
   const { data, baseColor } = props;
-  return (
+
+return (
     <Breadcrumb>
       {data?.map((d, index) => (
         <Breadcrumb.Item
