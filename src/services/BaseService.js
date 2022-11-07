@@ -4,9 +4,11 @@ class BaseService {
 	async fetch(url, options, authenticate = false, role = "user") {
 		if (authenticate) {
 			let token = localStorage.getItem("token");
+
 			if (role === "admin") {
 				token = localStorage.getItem("tokenAdmin");
 			}
+
 			options.headers = {
 				authorization: `${token}`,
 			};

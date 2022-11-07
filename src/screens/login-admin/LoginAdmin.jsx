@@ -1,6 +1,6 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Forms from "../../components/Forms";
@@ -31,7 +31,7 @@ const LoginAdmin = () => {
 			}
 		} catch (err) {
 			alert("Error! Please try again");
-			console.log("error while send api : " + err.message);
+			console.log(`error while send api : ${err.message}`);
 		}
 	};
 
@@ -40,25 +40,25 @@ const LoginAdmin = () => {
 			<h1>Login Admin</h1>
 			<Form onSubmit={login} align="left">
 				<Forms
-					label={"Email"}
-					name={"email"}
-					type={"email"}
-					placeholder={"Masukkan email Anda"}
+					label="Email"
+					name="email"
+					type="email"
+					placeholder="Masukkan email Anda"
 					onChange={(e) => {
 						setUser({ ...user, email: e.target.value });
 					}}
 				/>
 				<Forms
-					label={"Password"}
-					name={"password"}
-					type={"password"}
-					placeholder={"Masukkan password Anda"}
+					label="Password"
+					name="password"
+					type="password"
+					placeholder="Masukkan password Anda"
 					onChange={(e) => {
 						setUser({ ...user, password: e.target.value });
 					}}
 				/>
 
-				<Button title={"login"} type={"submit"}>
+				<Button title="login" type="submit">
 					Login
 				</Button>
 			</Form>

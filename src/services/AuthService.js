@@ -3,9 +3,11 @@ import { API } from "../configs/config";
 
 import { useDispatch } from "react-redux";
 import { logout } from "../features/authSlice";
+
 export default class AuthService extends BaseService {
 	async customFetch(url, options) {
 		const response = await fetch(url, options);
+
 		return response;
 	}
 
@@ -18,7 +20,7 @@ export default class AuthService extends BaseService {
 			credentials: "include",
 		};
 
-		return await this.customFetch(API + "/users/login", options);
+		return await this.customFetch(`${API}/users/login"`, options);
 	};
 
 	loginAdmin = async (data) => {
@@ -30,7 +32,7 @@ export default class AuthService extends BaseService {
 			credentials: "include",
 		};
 
-		return await this.customFetch(API + "/admin", options);
+		return await this.customFetch(`${API}/admin`, options);
 	};
 
 	register = async (data) => {
@@ -42,7 +44,7 @@ export default class AuthService extends BaseService {
 			credentials: "include",
 		};
 
-		return await this.customFetch(API + "/users", options);
+		return await this.customFetch(`${API}/users`, options);
 	};
 
 	verifyUser = async (token) => {
@@ -53,7 +55,7 @@ export default class AuthService extends BaseService {
 			},
 		};
 
-		return await this.customFetch(API + "/users/verify", options);
+		return await this.customFetch(`${API}/users/verify`, options);
 	};
 
 	verifyAdmin = async (token) => {
@@ -64,7 +66,7 @@ export default class AuthService extends BaseService {
 			},
 		};
 
-		return await this.customFetch(API + "/admin/verify", options);
+		return await this.customFetch(`${API}/admin/verify`, options);
 	};
 
 	logoutAdmin = () => {

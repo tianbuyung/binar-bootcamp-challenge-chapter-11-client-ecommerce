@@ -130,7 +130,7 @@ const AddProduct = ({ setIsFetching }) => {
 			alert(`Please provide a valid ${fileType}!`);
 		} else {
 			const metadata = {
-				contentType: `${fileType}/image`,
+				contentType: `${fileType}/png`,
 			};
 			const storageRef = ref(storage, `${fileType}s/${fileState.name}`);
 			const uploadTask = uploadBytesResumable(
